@@ -1,0 +1,3 @@
+This directory includes scripts to generate plots of the simulation results. The plotting code in the ```/plots``` folder should be copied into the ```/output/my_grid/scripts``` directory, where each plotting script can be run to generate the desired plots with the results of that particular grid scan.
+
+Before running the plotting scripts, the scripts in the ```/output/my_grid/scripts``` directory should be modified to ensure that they point to the correct data file and the correct output directory, and that the date ranges are set correctly.
