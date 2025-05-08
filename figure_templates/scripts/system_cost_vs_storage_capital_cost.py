@@ -12,8 +12,8 @@ import os
 import scienceplots
 
 # set the plotting style
-plt.style.use(['nature', 'vibrant'])
-
+#plt.style.use(['nature', 'vibrant'])
+colors = plt.cm.plasma(np.linspace(0, 1, 5))
 # 1) CHANGE THE SUPPLY/DEMAND FILE HERE. NOTE: ALSO NEED TO SPECIFY WHICH NORMALISATION TO USE IF USING NINJA DATA (2016 capacity, 2022 capcity or area-weighted)
 
 data_type = 'area_avg' # 'ninja' or 'area_avg'
@@ -33,7 +33,7 @@ if data_type == 'ninja':
     da.loc[{'variable': 'backup_used'}] = 32 * da.sel(variable='backup_used') / np.sum(demand) # 32 years of data
 
 elif data_type == 'area_avg':
-    df = pd.read_csv('./data/final_solar_total_supply_and_demand.csv')
+    df = pd.read_csv('./data/total_supply_and_demand.csv')
 
     norm_wind = df['Norm Wind (GW)'].values
     norm_solar = df['Norm Solar (GW)'].values
@@ -99,7 +99,7 @@ array_of_storage_capital_costs = np.arange(10, 401, 10)
 list_of_gas_allowed = [0.00, 0.01, 0.02]
 lost_hours_allowed = 3.26 # 99.97% reliability
 
-list_of_colors_for_gas = ['#FF0000', '#00FF00', '#0000FF']
+#list_of_colors_for_gas = ['#FF0000', '#00FF00', '#0000FF']
 
 
 fsize = 14

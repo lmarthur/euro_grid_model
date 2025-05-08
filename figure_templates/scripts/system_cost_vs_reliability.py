@@ -10,8 +10,8 @@ import matplotlib.ticker as ticker
 import scienceplots
 
 # set the plotting style
-plt.style.use(['nature', 'vibrant'])
-
+#plt.style.use(['nature', 'vibrant'])
+colors = plt.cm.plasma(np.linspace(0, 1, 5))
 # 1) CHANGE THE SUPPLY/DEMAND FILE HERE. (ALSO NEED TO SPECIFY WHICH NORMALISATION TO USE IF USING NINJA DATA)
 data_type = 'area_avg' # 'ninja' or 'area_avg'
 grid_name = 'dense_grid_2_final_solar' # Define the input path (This should be changed for each run)
@@ -29,7 +29,7 @@ if data_type == 'ninja':
     da.loc[{'variable': 'backup_used'}] = 32 * da.sel(variable='backup_used') / np.sum(demand) # 32 years of data
 
 elif data_type == 'area_avg':
-    df = pd.read_csv('./data/final_solar_total_supply_and_demand.csv')
+    df = pd.read_csv('./data/total_supply_and_demand.csv')
 
     norm_wind = df['Norm Wind (GW)'].values
     norm_solar = df['Norm Solar (GW)'].values
@@ -52,7 +52,7 @@ backup_used_da = da.sel(variable='backup_used')
 
 list_of_gas_allowed = np.array([0,0.01,0.02])
 list_of_lost_hours = np.linspace(0, 100, 51)
-list_of_colors_for_gas = ['#FF0000', '#00FF00', '#0000FF']
+#list_of_colors_for_gas = ['#FF0000', '#00FF00', '#0000FF']
 
 fsize = 14
 plt.figure(figsize=(8, 5))
@@ -124,7 +124,7 @@ for idx in range(len(list_of_gas_allowed)):
     plt.plot(list_of_lost_hours, list_of_total_costs, label = str(percentage_of_gas_allowed) + '% Nat Gas', linewidth=3)
 
 
-horizontal_line_colors = plt.cm.plasma(np.linspace(0, 0.6, 3))
+horizontal_line_colors = plt.cm.plasma(np.linspace(0, 1, 5))
 
 plt.axvline(x=2.63, linestyle='-', linewidth = 4, color='k', label='99.97% Reliability')
 plt.axvline(x=8.76, linestyle='--', linewidth = 4, color='k', label='99.9% Reliability')

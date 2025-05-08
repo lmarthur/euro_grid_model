@@ -12,7 +12,8 @@ import os
 import scienceplots
 
 # set the plotting style
-plt.style.use(['nature', 'vibrant'])
+#plt.style.use(['vibrant'])
+colors = plt.cm.plasma(np.linspace(0, 1, 5))
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../..')))
 from src.sim import run_timestep
@@ -33,7 +34,7 @@ os.makedirs(folder_to_save, exist_ok=True)
 
 # area_avg branch
 if run_type == 'area_avg':
-    df = pd.read_csv('./data/final_solar_total_supply_and_demand.csv')
+    df = pd.read_csv('./data/total_supply_and_demand.csv')
     # Constant arrays
     demand = df['Total Demand (GW)'].values
     peak_demand = np.max(demand)
@@ -151,7 +152,7 @@ for lost_hours_allowed in amounts_of_LOLE_allowed:
         plt.figure(figsize=(4, 3))
         plt.grid(True, linestyle='--', alpha=0.7)
         outage_bins = np.arange(0, 55, 5)  # Bins will be [0, 5, 10, ..., 50]
-        plt.hist(filtered_list, bins=outage_bins, edgecolor='black', color='#1f77b4')
+        plt.hist(filtered_list, bins=outage_bins, edgecolor='black', color=colors[0])
 
 
         plt.gca().spines['top'].set_linewidth(2)
@@ -183,7 +184,7 @@ for lost_hours_allowed in amounts_of_LOLE_allowed:
         plt.figure(figsize=(4, 3))
         plt.grid(True, linestyle='--', alpha=0.7)
         prop_demand_bins = np.arange(50, 105, 5)
-        plt.hist(supply_demand_percent, bins=prop_demand_bins, edgecolor='black', color='#ff7f0e')
+        plt.hist(supply_demand_percent, bins=prop_demand_bins, edgecolor='black', color=colors[1])
 
         plt.gca().spines['top'].set_linewidth(2)
         plt.gca().spines['bottom'].set_linewidth(2)
@@ -228,7 +229,7 @@ for lost_hours_allowed in amounts_of_LOLE_allowed:
         plt.grid(True, linestyle='--', alpha=0.7)
 
         # Create bar chart
-        plt.bar(cost_labels, cost_values, edgecolor='black', color=['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728'])
+        plt.bar(cost_labels, cost_values, edgecolor='black', color=colors)
 
         # Set the properties of the plot to match the histograms
         plt.gca().spines['top'].set_linewidth(2)

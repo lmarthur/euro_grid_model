@@ -13,8 +13,8 @@ from matplotlib.ticker import MaxNLocator
 import scienceplots
 
 # set the plotting style
-plt.style.use(['nature', 'vibrant'])
-
+#plt.style.use(['nature', 'vibrant'])
+colors = plt.cm.plasma(np.linspace(0, 1, 5))
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../..')))
 from src.sim import run_timestep
 fsize = 20
@@ -35,7 +35,7 @@ da = xr.open_dataarray(f'./output/{simulation_name}/results_with_costs.nc')
 
 # area_avg branch
 if run_type == 'area_avg':
-    df = pd.read_csv('./data/final_solar_total_supply_and_demand.csv')
+    df = pd.read_csv('./data/total_supply_and_demand.csv')
     # Constant arrays
     demand = df['Total Demand (GW)'].values
     peak_demand = np.max(demand)
@@ -220,7 +220,7 @@ for storage_capital_cost in storage_capital_costs:
         plt.figure(figsize=(4, 3))
         plt.grid(True, linestyle='--', alpha=0.7)
         outage_bins = np.arange(0, 55, 5)  # Bins will be [0, 5, 10, ..., 50]
-        plt.hist(filtered_list, bins=outage_bins, edgecolor='black', color='#1f77b4')
+        plt.hist(filtered_list, bins=outage_bins, edgecolor='black', color=colors[0])
 
 
         plt.gca().spines['top'].set_linewidth(2)
@@ -300,7 +300,7 @@ for storage_capital_cost in storage_capital_costs:
         plt.grid(True, linestyle='--', alpha=0.7)
 
         # Create bar chart
-        plt.bar(cost_labels, cost_values, edgecolor='black', color=['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728'])
+        plt.bar(cost_labels, cost_values, edgecolor='black', color=colors)
 
         # Set the properties of the plot to match the histograms
         plt.gca().spines['top'].set_linewidth(2)
